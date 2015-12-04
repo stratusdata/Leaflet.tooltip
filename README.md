@@ -10,7 +10,7 @@ Tooltips are configured with a reference to a Leaflet map and a  `target` which 
 ````javascript
 var marker = L.marker(new L.LatLng(-36.852668, 174.762675)).addTo(map);
 
-var tooltip = L.tooltip({
+var tooltip = L.tooltip2({
     target: marker,
 	map: map,
     html: "I'm a tooltip!"

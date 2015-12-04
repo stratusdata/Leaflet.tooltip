@@ -1,5 +1,5 @@
-L.Tooltip = L.Class.extend({
-	
+L.Tooltip2 = L.Class.extend({
+
 	options: {
 		width: 'auto',
 		minWidth: '',
@@ -9,7 +9,7 @@ L.Tooltip = L.Class.extend({
 		hideDelay: 500,
 		mouseOffset: L.point(0, 24),
 		fadeAnimation: true,
-		trackMouse: false		
+		trackMouse: false
 	},
 
 	initialize: function (options) {
@@ -43,7 +43,7 @@ L.Tooltip = L.Class.extend({
 
 		this._map._tooltipContainer.appendChild(this._container);
 	},
-	
+
 	isVisible: function () {
 		return this._showing;
 	},
@@ -84,14 +84,14 @@ L.Tooltip = L.Class.extend({
 
 	setHtml: function (html) {
 		if (typeof html === 'string') {
-			this._container.innerHTML = html;	
+			this._container.innerHTML = html;
 		} else {
 			while (this._container.hasChildNodes()) {
 				this._container.removeChild(this._container.firstChild);
 			}
-			this._container.appendChild(this._content);			
+			this._container.appendChild(this._content);
 		}
-		
+
 		this._sizeChanged = true;
 	},
 
@@ -101,7 +101,7 @@ L.Tooltip = L.Class.extend({
 		    containerSize = this._getElementSize(this._container);
 
 		point = point.add(this.options.mouseOffset);
-		
+
 		if (point.x + containerSize.x > mapSize.x) {
 			container.style.left = 'auto';
 			container.style.right = (mapSize.x - point.x + 2*(this.options.mouseOffset.x)) + 'px';
@@ -109,7 +109,7 @@ L.Tooltip = L.Class.extend({
 			container.style.left = point.x + 'px';
 			container.style.right = 'auto';
 		}
-		
+
 		if (point.y + containerSize.y > mapSize.y) {
 			container.style.top = 'auto';
             container.style.bottom = (mapSize.y - point.y + 2*(this.options.mouseOffset.y)) + 'px';
@@ -132,8 +132,8 @@ L.Tooltip = L.Class.extend({
 		if (L.Tooltip.activeTip && L.Tooltip.activeTip != this) {
 			L.Tooltip.activeTip._hide();
 		}
-		L.Tooltip.activeTip = this;		
-		
+		L.Tooltip.activeTip = this;
+
 		if (html) {
 			this.setHtml(html);
 		}
@@ -148,7 +148,7 @@ L.Tooltip = L.Class.extend({
 	},
 
 	_show: function () {
-		this._container.style.display = 'inline-block';		
+		this._container.style.display = 'inline-block';
 
 		// Necessary to force re-calculation of the opacity value so transition will run correctly
 		if (window.getComputedStyle) {
@@ -157,7 +157,7 @@ L.Tooltip = L.Class.extend({
 
 		L.DomUtil.addClass(this._container, 'leaflet-tooltip-fade');
 
-		this._showing = true;			
+		this._showing = true;
 	},
 
 	hide: function () {
@@ -165,17 +165,17 @@ L.Tooltip = L.Class.extend({
 			this._delay(this._hide, this, this.options.hideDelay);
 		} else {
 			this._hide();
-		}		
+		}
 	},
 
-	_hide: function () {	
+	_hide: function () {
 		if (this._timeout) {
 			clearTimeout(this._timeout);
 		}
-		
+
 		L.DomUtil.removeClass(this._container, 'leaflet-tooltip-fade');
 		this._container.style.display = 'none';
-		
+
 		this._showing = false;
 
 		if (L.Tooltip.activeTip === this) {
@@ -199,7 +199,7 @@ L.Tooltip = L.Class.extend({
 		return !isNaN(parseFloat(val)) && isFinite(val);
 	},
 
-	_getElementSize: function (el) {		
+	_getElementSize: function (el) {
 		var size = this._size;
 
 		if (!size || this._sizeChanged) {
@@ -208,13 +208,13 @@ L.Tooltip = L.Class.extend({
 			el.style.left = '-999999px';
 			el.style.right = 'auto';
 			el.style.display = 'inline-block';
-			
+
 			size.x = el.offsetWidth;
 			size.y = el.offsetHeight;
-			
+
 			el.style.left = 'auto';
 			el.style.display = 'none';
-			
+
 			this._sizeChanged = false;
 		}
 		return size;
@@ -230,7 +230,7 @@ L.Tooltip = L.Class.extend({
 		L.DomEvent.stopPropagation(e);
 
 		if (this.options.trackMouse) {
-			var point = this._map.mouseEventToContainerPoint(e);		
+			var point = this._map.mouseEventToContainerPoint(e);
 			this.setPosition(point);
 		}
 	},
@@ -245,7 +245,7 @@ L.Map.addInitHook(function () {
 });
 
 L.tooltip = function (options) {
-	return new L.Tooltip(options);
+	return new L.Tooltip2(options);
 };
 
 (function () {
@@ -258,12 +258,12 @@ L.tooltip = function (options) {
 		getTooltip: function () {
 			return this._tooltip;
 		},
-		
+
 		onAdd: function (map) {
 			originalOnAdd.call(this, map);
 
 			if (this.options.tooltip) {
-				this._tooltip = L.tooltip(L.extend(this.options.tooltip, {target: this, map: map}));
+				this._tooltip = L.tooltip2(L.extend(this.options.tooltip, {target: this, map: map}));
 			}
 		},
 
@@ -274,12 +274,12 @@ L.tooltip = function (options) {
 			originalOnRemove.call(this, map);
 		},
 
-		setIcon: function (icon) {			
+		setIcon: function (icon) {
 			originalSetIcon.call(this, icon);
-			
+
 			if (this._tooltip) {
 				this._tooltip.setTarget(this._icon);
 			}
 		}
-	});	
+	});
 })();

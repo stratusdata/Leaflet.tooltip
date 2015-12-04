@@ -20,14 +20,14 @@
       L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
-      
+
       polygon = L.polygon([
           [-36.848857,174.755402],
           [-36.857373,174.764328],
           [-36.850780,174.772568]
       ]).addTo(map);
-      
-      tooltip = L.tooltip({
+
+      tooltip = L.tooltip2({
           target: polygon,
 	      map: map,
 	      html: "I'm a tooltip!",
