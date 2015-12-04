@@ -33,7 +33,7 @@ L.marker(new L.LatLng(-36.852668, 174.762675), {
 | --- | --- | --- | ---
 | map | [L.Map](http://leafletjs.com/reference.html#map-class) | `undefined` | The map instance the tooltip is to be shown on (required).
 | target | HTMLElement/[L.Marker](http://leafletjs.com/reference.html#marker) | `undefined` | The element or marker to bind the tooltip to.
-| html | String | `undefined` | The tooltip content. May also be set using the `L.Tooltip.setHtml()` method.
+| html | String | `undefined` | The tooltip content. May also be set using the `L.Tooltip2.setHtml()` method.
 | width | mixed | `'auto'` | The width of the tooltip. If unspecified the width will be determined by the tooltip content.
 | minWidth | mixed | `''` | The minimum width of the tooltip specifed as a number or a valid CSS width value.
 | maxWidth | mixed | `''` | The minimum width of the tooltip specifed as a number or a valid CSS width value.

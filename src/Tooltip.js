@@ -129,10 +129,10 @@ L.Tooltip2 = L.Class.extend({
 	},
 
 	show: function (point, html) {
-		if (L.Tooltip.activeTip && L.Tooltip.activeTip != this) {
-			L.Tooltip.activeTip._hide();
+		if (L.Tooltip2.activeTip && L.Tooltip2.activeTip != this) {
+			L.Tooltip2.activeTip._hide();
 		}
-		L.Tooltip.activeTip = this;
+		L.Tooltip2.activeTip = this;
 
 		if (html) {
 			this.setHtml(html);
@@ -178,8 +178,8 @@ L.Tooltip2 = L.Class.extend({
 
 		this._showing = false;
 
-		if (L.Tooltip.activeTip === this) {
-			delete L.Tooltip.activeTip;
+		if (L.Tooltip2.activeTip === this) {
+			delete L.Tooltip2.activeTip;
 		}
 	},
 
@@ -244,7 +244,7 @@ L.Map.addInitHook(function () {
 	this._tooltipContainer = L.DomUtil.create('div', 'leaflet-tooltip-container', this._container);
 });
 
-L.tooltip = function (options) {
+L.tooltip2 = function (options) {
 	return new L.Tooltip2(options);
 };
 
